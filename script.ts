@@ -145,8 +145,26 @@ Array.prototype.customRecursiveReverse = function () {
   return this;
 };
 
-Array.prototype.fill = function () {};
+Array.prototype.customFill = function (value, start = 0, end) {
+  if (-this.length < start && start < 0) {
+    start = start + this.length;
+  }
+
+  if (start < -this.length) start = 0;
+
+  if (-this.length <= end && start < 0) {
+    end = end + this.length;
+  }
+
+  if (end < -this.length) end = 0;
+
+  end = end ?? this.length;
+
+  for (let i = start; i < end; i++) {
+    this[i] = value;
+  }
+
+  return this;
+};
 
 
-
-// console.log([1].customReverse());

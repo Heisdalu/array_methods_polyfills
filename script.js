@@ -149,9 +149,6 @@ Function.prototype.customApply = function (ctx, variables) {
     return res;
 };
 Function.prototype.customBind = function (ctx, ...variables) {
-    if (!Array.isArray(variables) && variables !== undefined) {
-        throw new Error("expects an array");
-    }
     ctx = ctx || globalThis;
     ctx = Object(ctx);
     const unique = Symbol();

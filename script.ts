@@ -205,10 +205,6 @@ Function.prototype.customApply = function (ctx: any, variables: any[]) {
 };
 
 Function.prototype.customBind = function (ctx: any, ...variables: any[]) {
-  if (!Array.isArray(variables) && variables !== undefined) {
-    throw new Error("expects an array");
-  }
-
   ctx = ctx || globalThis;
   ctx = Object(ctx);
 

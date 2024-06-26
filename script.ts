@@ -216,7 +216,7 @@ Function.prototype.customBind = function (ctx: any, ...variables: any[]) {
 
   ctx[unique] = this;
 
-  return (...args) => {
+  return (...args: any[]) => {
     const varb = variables.length === 0 ? args : variables.concat(args);
     const res = ctx[unique](...varb);
     delete ctx[unique];

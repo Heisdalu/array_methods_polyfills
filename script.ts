@@ -167,4 +167,69 @@ Array.prototype.customFill = function (value, start = 0, end) {
   return this;
 };
 
+Function.prototype.customCall = function (context: any, ...variables: any[]) {
+  context = context || globalThis;
 
+  context = Object(context);
+
+  const unique = Symbol();
+
+  context[unique] = this;
+
+  console.log(this, context);
+
+  const result = context[unique](...variables);
+
+  delete context[unique];
+
+  return result;
+};
+
+Function.prototype.customApply = function (ctx: any, variables: any[]) {
+  if (!Array.isArray(variables) && variables !== undefined) {
+    throw new Error("expects an array");
+  }
+
+  ctx = ctx || globalThis;
+  ctx = Object(ctx);
+
+  const unique = Symbol();
+
+  ctx[unique] = this;
+
+  const res = ctx[unique](...variables);
+
+  delete ctx[unique];
+
+  return res;
+};
+
+Function.prototype.customBind = function (ctx: any, ...variables: any[]) {
+  if (!Array.isArray(variables) && variables !== undefined) {
+    throw new Error("expects an array");
+  }
+
+  ctx = ctx || globalThis;
+  ctx = Object(ctx);
+
+  const unique = Symbol();
+
+  ctx[unique] = this;
+
+  return (...args) => {
+    const varb = variables.length === 0 ? args : variables.concat(args);
+    const res = ctx[unique](...varb);
+    delete ctx[unique];
+    return res;
+  };
+};
+
+// const obj = {
+//   okay(value: any) {
+//     return this.name + value;
+//   },
+// };
+
+// const res = obj.okay.customBind({ name: "divine" });
+
+// console.log(res(" obi"));
